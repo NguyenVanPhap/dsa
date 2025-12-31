@@ -24,7 +24,7 @@ class Solution {
 // Test cases
 class GroupAnagramsTest {
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        LongestConsecutiveSequence solution = new LongestConsecutiveSequence();
         
         // TODO: Add your test cases here
         // Example:

@@ -14,19 +14,74 @@ import java.util.*;
  * 6. Analyze space complexity
  * 7. Optimize if possible
  */
-class Solution {
+class TopKFrequentElements {
     public int[] topKFrequent(int[] nums, int k) {
-        // TODO: Implement your solution here
-        return new int[0];
-    }
-}
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
 
-// Test cases
-class TopKFrequentElementsTest {
+        // Min-Heap theo frequency
+        PriorityQueue<Map.Entry<Integer, Integer>> minHeap =
+            new PriorityQueue<>(Comparator.comparingInt(Map.Entry::getValue));
+
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            minHeap.offer(entry);
+            if (minHeap.size() > k) {
+                minHeap.poll(); // loại phần tử có frequency nhỏ nhất
+            }
+        }
+
+        int[] result = new int[ k ];
+        int i = 0;
+        for (Map.Entry<Integer, Integer> entry : minHeap) {
+            result[ i++ ] = entry.getKey();
+        }
+
+        return result;
+    }
+
+    public int[] topKFrequeneUseBucketSort(int[] nums, int k) {
+        Map<Integer, Integer> frequencyMap = new HashMap<>();
+        for (int num : nums) {
+            frequencyMap.put(num, frequencyMap.getOrDefault(num, 0) + 1);
+        }
+
+
+        List<Integer>[] bucket = new List[ nums.length + 1 ];
+        for (Map.Entry<Integer, Integer> entry : frequencyMap.entrySet()) {
+            int freq = entry.getValue();
+            if (bucket[freq] == null) {
+                bucket[freq] = new ArrayList<>();
+            }
+            bucket[ freq ].add(entry.getKey());
+        }
+
+        int[] result = new int[ k ];
+        int i = 0;
+        for (int freq = bucket.length - 1; freq >= 0 && i < k; freq--) {
+            if (bucket[freq] != null) {
+                for (int num : bucket[freq]) {
+                    result[ i++ ] = num;
+                    if (i == k) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
+        TopKFrequentElements solution = new TopKFrequentElements();
+
+
         // TODO: Add your test cases here
+        int[] nums1 = {1, 1, 1, 2, 2, 3};
+        int k1 = 2;
+        System.out.println(Arrays.toString(solution.topKFrequeneUseBucketSort(nums1, k1))); // Expected: [1, 2]
     }
 }
 

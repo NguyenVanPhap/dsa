@@ -2,8 +2,6 @@
 // Difficulty: Medium
 // Link: https://leetcode.com/problems/longest-consecutive-sequence/
 
-import java.util.*;
-
 /**
  * TODO:
  * 1. Understand the problem: Find longest consecutive sequence in unsorted array
@@ -24,7 +22,7 @@ class Solution {
 // Test cases
 class LongestConsecutiveSequenceTest {
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        LongestConsecutiveSequence solution = new LongestConsecutiveSequence();
         
         // TODO: Add your test cases here
     }

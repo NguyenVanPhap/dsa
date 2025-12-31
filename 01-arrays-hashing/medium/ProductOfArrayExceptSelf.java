@@ -12,18 +12,27 @@
  * 6. Analyze space complexity: O(1) excluding output array
  * 7. Optimize if possible
  */
-class Solution {
+class ProductOfArrayExceptSelf {
     public int[] productExceptSelf(int[] nums) {
         // TODO: Implement your solution here
-        return new int[0];
-    }
-}
+        int[] prefixProducts = new int[ nums.length ];
 
-// Test cases
-class ProductOfArrayExceptSelfTest {
+        for (int i = 0; i < nums.length; i++) {
+            prefixProducts[ i ] = prefixProducts[ i - 1 ] * nums[ i - 1 ];
+        }
+
+        int suffixProduct = 1;
+        for (int i = nums.length - 1; i >= 0; i--) {
+            prefixProducts[ i ] = prefixProducts[ i ] * suffixProduct;
+            suffixProduct *= nums[ i ];
+        }
+
+        return prefixProducts;
+    }
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
+        ProductOfArrayExceptSelf solution = new ProductOfArrayExceptSelf();
+
         // TODO: Add your test cases here
     }
 }
