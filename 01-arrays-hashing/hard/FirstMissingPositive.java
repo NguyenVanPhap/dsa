@@ -2,6 +2,8 @@
 // Difficulty: Hard
 // Link: https://leetcode.com/problems/first-missing-positive/
 
+import static java.util.Collections.swap;
+
 /**
  * TODO:
  * 1. Understand the problem: Find smallest missing positive integer in O(n) time, O(1) space
@@ -12,19 +14,44 @@
  * 6. Analyze space complexity: O(1)
  * 7. Optimize if possible
  */
-class Solution {
+class FirstMissingPositive {
     public int firstMissingPositive(int[] nums) {
         // TODO: Implement your solution here
-        return 0;
-    }
-}
+        int n = nums.length;
 
-// Test cases
-class FirstMissingPositiveTest {
+        int i = 0;
+        while (i < n) {
+            if (nums[i] > 0 && nums[i] <= n) {
+                int correct = nums[i] - 1;
+                if (nums[i] != nums[correct]) {
+                    int tmp = nums[i];
+                    nums[i] = nums[correct];
+                    nums[correct] = tmp;
+
+                    continue;
+                }
+            }
+            i++;
+        }
+
+        for (i = 0; i < n; i++)
+            System.out.println(nums[i]);
+
+        for (i = 0; i < n; i++) {
+            if (nums[i] != i + 1) {
+                return i + 1;
+            }
+        }
+        return n + 1;
+    }
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
+
         
         // TODO: Add your test cases here
+
+       int[] nums = {-1, 1, 3, 4};
+       System.out.println(new FirstMissingPositive().firstMissingPositive(nums));
     }
 }
 

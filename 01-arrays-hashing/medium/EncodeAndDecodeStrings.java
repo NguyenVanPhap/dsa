@@ -14,26 +14,55 @@ import java.util.*;
  * 6. Analyze space complexity
  * 7. Optimize if possible
  */
-public class Codec {
+public class EncodeAndDecodeStrings {
     // Encodes a list of strings to a single string.
-    public String encode(List<String> strs) {
-        // TODO: Implement your solution here
-        return "";
+    public static String encode(List<String> strs) {
+        StringBuilder sb = new StringBuilder();
+        for (String s : strs) {
+            sb.append(s.length()).append('#').append(s);
+        }
+        return sb.toString();
     }
 
     // Decodes a single string to a list of strings.
-    public List<String> decode(String s) {
-        // TODO: Implement your solution here
-        return new ArrayList<>();
-    }
-}
+    public static List<String> decode(String s) {
+        List<String> result = new ArrayList<>();
+        int i = 0;
 
-// Test cases
-class EncodeAndDecodeStringsTest {
+        while (i < s.length()) {
+            int j = i;
+            // tìm dấu #
+            while (s.charAt(j) != '#') {
+                j++;
+            }
+
+            int len = Integer.parseInt(s.substring(i, j));
+            j++; // bỏ qua '#'
+
+            result.add(s.substring(j, j + len));
+            i = j + len;
+        }
+
+        return result;
+    }
+
+
     public static void main(String[] args) {
-        Codec codec = new Codec();
-        
+
+
         // TODO: Add your test cases here
+        List<String> strs = new ArrayList<>();
+        strs.add("abc");
+        strs.add("def");
+        strs.add("ghi");
+        strs.add("jkl");
+        strs.add("mno");
+        strs.add("pqr");
+
+        String encoded = encode(strs);
+        System.out.println("Encoded:" + encoded);
+        List<String> decoded = decode(encoded);
+        System.out.println("Decoded:" + decoded);
     }
 }
 

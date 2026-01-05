@@ -14,22 +14,27 @@ import java.util.*;
  * 6. Analyze space complexity: O(n * k)
  * 7. Optimize if possible
  */
-class Solution {
-    public List<List<String>> groupAnagrams(String[] strs) {
-        // TODO: Implement your solution here
-        return null;
-    }
-}
+class GroupAnagrams {
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> map = new HashMap<>();
 
-// Test cases
-class GroupAnagramsTest {
+        for (String s : strs) {
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String key = new String(chars);
+
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
+        }
+
+        return new ArrayList<>(map.values());
+    }
+
+
     public static void main(String[] args) {
-        LongestConsecutiveSequence solution = new LongestConsecutiveSequence();
-        
         // TODO: Add your test cases here
         // Example:
-        // String[] test1 = {"eat","tea","tan","ate","nat","bat"};
-        // System.out.println(solution.groupAnagrams(test1));
+        String[] test1 = {"eat","tea","tan","ate","nat","bat"};
+        System.out.println(groupAnagrams(test1));
     }
 }
 
