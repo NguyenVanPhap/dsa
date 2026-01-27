@@ -53,7 +53,7 @@ class MinimumWindowSubstring {
             }
         }
 
-        if(!frequencyMap.isEmpty())
+        if (!frequencyMap.isEmpty())
             return "";
 
         return shortedSubstring;
@@ -84,12 +84,15 @@ class MinimumWindowSubstring {
                     start = left;
                 }
 
-                char leftChar = s.charAt(left++);
+                Character leftChar = s.charAt(left);
                 if (freq.containsKey(leftChar)) {
                     freq.put(leftChar, freq.get(leftChar) + 1);
-                    if (freq.get(leftChar) > 0) required++;
+                    if (freq.get(leftChar) > 0)
+                        required++;
                 }
+                left++;
             }
+
         }
 
         return minLen == Integer.MAX_VALUE ? "" : s.substring(start, start + minLen);
@@ -101,7 +104,7 @@ class MinimumWindowSubstring {
         // TODO: Add your test cases here
         String s = "ADOBECAODEBANC";
         String t = "ABCH";
-        System.out.println("Result:" + minWindow(s, t));
+        System.out.println("Result:" + minWindowV2(s, t));
     }
 }
 

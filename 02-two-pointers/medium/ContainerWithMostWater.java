@@ -12,19 +12,35 @@
  * 6. Analyze space complexity: O(1)
  * 7. Optimize if possible
  */
-class Solution {
-    public int maxArea(int[] height) {
+class ContainerWithMostWater {
+    private static int maxArea(int[] height) {
         // TODO: Implement your solution here
-        return 0;
-    }
-}
 
-// Test cases
-class ContainerWithMostWaterTest {
+
+        int left = 0;
+        int right = height.length - 1;
+        int maxArea = 0;
+
+        while (left < right) {
+            if (height[left] < height[right]) {
+                maxArea = Math.max(maxArea, height[left] * (right - left));
+                left++;
+            } else {
+                maxArea = Math.max(maxArea, height[right] * (right - left));
+                right--;
+            }
+
+        }
+
+        return maxArea;
+    }
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
         // TODO: Add your test cases here
+        int[] testcase = new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7};
+        System.out.println("Result:" + maxArea(testcase));
+
+
     }
 }
 
