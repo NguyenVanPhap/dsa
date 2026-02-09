@@ -12,18 +12,26 @@
  * 6. Analyze space complexity: O(1)
  * 7. Optimize if possible
  */
-class Solution {
-    public int findMin(int[] nums) {
+class FindMinimumInRotatedSortedArray {
+    int findMin(int[] nums) {
         // TODO: Implement your solution here
+        int length = nums.length;
+        if (length == 0) {
+            return 0;
+        }
+
+        for (int i = 0; i < length - 1; i++) {
+            if (nums[i] > nums[i + 1]) {
+
+            }
+        }
+
+
         return 0;
     }
-}
 
-// Test cases
-class FindMinimumInRotatedSortedArrayTest {
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
+
         // TODO: Add your test cases here
     }
 }

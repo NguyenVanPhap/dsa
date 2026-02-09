@@ -15,33 +15,78 @@ import java.util.*;
  * 7. Optimize if possible
  */
 
-// Definition for a binary tree node.
-class TreeNode {
-    int val;
-    TreeNode left;
-    TreeNode right;
-    TreeNode() {}
-    TreeNode(int val) { this.val = val; }
-    TreeNode(int val, TreeNode left, TreeNode right) {
-        this.val = val;
-        this.left = left;
-        this.right = right;
-    }
-}
 
-class Solution {
-    public List<List<Integer>> levelOrder(TreeNode root) {
+class LevelOrderTraversal {
+    public static List<List<Integer>> levelOrder(TreeNode root) {
         // TODO: Implement your solution here
-        return new ArrayList<>();
-    }
-}
+        List<List<Integer>> result = new ArrayList<>();
+        Queue<TreeNode> queue = new LinkedList<>();
 
-// Test cases
-class LevelOrderTraversalTest {
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            List<Integer> level = new ArrayList<>();
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode node = queue.poll();
+                level.add(node.val);
+                if (node.left != null)
+                    queue.offer(node.left);
+                if (node.right != null)
+                    queue.offer(node.right);
+            }
+            result.add(level);
+        }
+
+
+        return result;
+    }
+
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
-        // TODO: Add your test cases here
+
+        // Test case:
+        //        1
+        //       / \
+        //      2   3
+        //     /     \
+        //    4       5
+
+        TreeNode root = new TreeNode(1);
+
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+
+        root.left.right = new TreeNode(4);
+
+        root.left.left = new TreeNode(4);
+        root.right.right = new TreeNode(5);
+
+        // Gọi hàm level order
+        List<List<Integer>> result = levelOrder(root);
+
+        // In kết quả
+        System.out.println(result);
+
+    }
+
+    // Definition for a binary tree node.
+    static class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
     }
 }
 

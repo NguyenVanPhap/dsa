@@ -14,18 +14,38 @@ import java.util.*;
  * 6. Analyze space complexity: O(min(n, m)) where m is charset size
  * 7. Optimize if possible
  */
-class Solution {
-    public int lengthOfLongestSubstring(String s) {
+class LongestSubstringWithoutRepeatingCharacters {
+    public static int lengthOfLongestSubstring(String s) {
         // TODO: Implement your solution here
-        return 0;
-    }
-}
 
-// Test cases
-class LongestSubstringWithoutRepeatingCharactersTest {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int maxLength = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            char c = s.charAt(right);
+            if (map.containsKey(c)) {
+                while (s.charAt(left) != c) {
+                    map.remove(s.charAt(left));
+                    left++;
+                }
+                left++;
+            } else {
+                map.put(s.charAt(right), right);
+            }
+            maxLength = Math.max(maxLength, right - left + 1);
+        }
+
+
+        return maxLength;
+    }
+
     public static void main(String[] args) {
-        Solution solution = new Solution();
-        
+
+        String s = "AABABBA";
+        int result = lengthOfLongestSubstring(s);
+        System.out.println("Longest substring length: " + result);
+
         // TODO: Add your test cases here
     }
 }
